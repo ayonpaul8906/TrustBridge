@@ -99,9 +99,7 @@ export default function BorrowerAuthPage() {
         password
       );
       const user = userCredential.user;
-      console.log("User signed in:", user.uid);
-
-      console.log(values);
+      
       toast.success("Successfully signed in!", {
         position: "top-right",
         autoClose: 3000,

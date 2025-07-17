@@ -131,8 +131,8 @@ export default function BorrowerDashboard() {
       <section>
         <h2 className="text-2xl font-semibold mb-4 text-white">Recent Activity</h2>
         <ul className="space-y-3">
-          <li className="bg-gray-800 rounded-md p-4">✅ Last payment of ₹3,333 paid on Apr 30</li>
-          <li className="bg-gray-800 rounded-md p-4">📨 New loan offer approved: ₹5,000</li>
+          <li className="bg-gray-800 rounded-md p-4">✅ Last payment of 0.3 ETH paid on Apr 30</li>
+          <li className="bg-gray-800 rounded-md p-4">📨 New loan offer approved: 5 ETH</li>
           <li className="bg-gray-800 rounded-md p-4">🎯 Trust Score updated to {trustScore ?? "N/A"}</li>
         </ul>
       </section>

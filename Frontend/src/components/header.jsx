@@ -44,7 +44,7 @@ export default function Header() {
     return (
       <Link to="/auth-selector">
         <Button className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-full">
-          Sign In
+          Login
         </Button>
       </Link>
     );

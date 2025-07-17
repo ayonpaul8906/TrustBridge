@@ -127,7 +127,7 @@ export default function LenderDashboard() {
         </h2>
         <ul className="space-y-3">
           <li className="bg-gray-800 rounded-md p-4">
-            💸 You funded ₹5,000 to Aarti Sharma
+            💸 You funded 5 ETH to Aarti Sharma
           </li>
           <li className="bg-gray-800 rounded-md p-4">
             📨 Loan request received from Ramesh B.

@@ -165,7 +165,7 @@ const LenderList = () => {
                   <HandCoins size={16} className="text-yellow-400" />
                   Max Lend Amount:{" "}
                   <span className="text-white font-medium">
-                    ₹{lender.maxAmount}
+                    {lender.maxAmount} ETH
                   </span>
                 </p>
                 <p className="text-gray-400 mb-1 flex items-center gap-2">

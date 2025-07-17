@@ -36,10 +36,39 @@ export default function ActiveBorrowers() {
         );
 
         const querySnapshot = await getDocs(q);
-        const results = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+
+        const results = await Promise.all(
+          querySnapshot.docs.map(async (doc) => {
+            const loan = { id: doc.id, ...doc.data() };
+
+            // Fetch repayments for this loan
+            const repaymentsQ = query(
+              collection(db, "repayments"),
+              where("loanId", "==", loan.id),
+              where("lenderId", "==", currentUser.uid)
+            );
+            const repaymentsSnap = await getDocs(repaymentsQ);
+            const repayments = repaymentsSnap.docs.map((r) => r.data());
+
+            const installmentsPaid = repayments.length;
+            const totalPaid = repayments.reduce(
+              (sum, r) => sum + (r.amount || 0),
+              0
+            );
+            const totalWithInterest =
+              parseFloat(loan.amount) *
+              (1 + parseFloat(loan.interestRate) / 100);
+            const remainingAmount = totalWithInterest - totalPaid;
+
+            return {
+              ...loan,
+              installmentsPaid,
+              totalPaid,
+              remainingAmount,
+              totalWithInterest,
+            };
+          })
+        );
         setLoanRequests(results);
       } catch (error) {
         console.error("Error fetching loan requests:", error);
@@ -126,6 +155,24 @@ export default function ActiveBorrowers() {
                       </span>{" "}
                       {request.trustScore}
                     </p>
+                    <p className="text-gray-400">
+                      <span className="font-medium text-white">
+                        Installments Paid:
+                      </span>{" "}
+                      {request.installmentsPaid} / 6
+                    </p>
+                    <p className="text-gray-400">
+                      <span className="font-medium text-white">
+                        Total Paid:
+                      </span>{" "}
+                      {request.totalPaid.toFixed(3)} ETH
+                    </p>
+                    <p className="text-gray-400">
+                      <span className="font-medium text-white">
+                        Remaining Amount:
+                      </span>{" "}
+                      {request.remainingAmount.toFixed(3)} ETH
+                    </p>
                   </div>
                   <div className="space-y-2">
                     <p className="text-gray-400">
@@ -141,6 +188,12 @@ export default function ActiveBorrowers() {
                       <span className="text-emerald-300">
                         {formatDate(request.transferredAt)}
                       </span>
+                    </p>
+                    <p className="text-gray-400">
+                      <span className="font-medium text-white">
+                        Total With Interest:
+                      </span>{" "}
+                      {request.totalWithInterest.toFixed(3)} ETH
                     </p>
                   </div>
                 </div>

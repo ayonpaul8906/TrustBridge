@@ -218,7 +218,7 @@ export default function BorrowerAuthPage() {
                   value="signin"
                   className="rounded-md transition-all data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-blue-500 data-[state=active]:text-white"
                 >
-                  Sign In
+                  Login
                 </TabsTrigger>
                 <TabsTrigger
                   value="signup"
@@ -283,7 +283,7 @@ export default function BorrowerAuthPage() {
                           Signing in...
                         </span>
                       ) : (
-                        "Sign In"
+                        "Login"
                       )}
                     </Button>
                   </form>
